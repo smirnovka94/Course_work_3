@@ -67,6 +67,35 @@ def hidden_account(account: str) -> str:
     :param account:
     :return:
     """
-    pass
+    text_split = account.split(' ')
+    right_account = " ".join(text_split[:-1])
+    number_account = text_split[-1]
+    len_number = len(number_account)
+    if len_number == 16:
+        for i, item in enumerate(number_account):
+            if (i) % 4 == 0:
+                right_account = right_account + " "
+            if 5 < i < 12:
+                right_account = right_account + "*"
+            else:
+                right_account = right_account + item
+    else:
+        right_account = f"{right_account} **{number_account[-4:]}"
+    return right_account
+
 def export_full_inf():
-    pass
+
+    for key, value in index_date_operations.items():
+        key = int(key)
+        description = list_operations[key]['description']  # Получаем тип операции
+        sender_account = list_operations[key]['from']  # Получаем счет отправителя
+        sender_account = hidden_account(sender_account)
+        recipient_account = list_operations[key]['to']  # Получаем счет получателя
+        recipient_account = hidden_account(recipient_account)
+
+        cash = list_operations[key]['operationAmount']['amount']  # Получаем сумму перевода
+        currency = list_operations[key]['operationAmount']['currency']['name']  # Получаем валюту перевода
+
+        print(f"{value} {description}")
+        print(f"{sender_account} -> {recipient_account}")
+        print(f"{cash} {currency}\n")
