@@ -115,3 +115,36 @@ def expexted_result_for_read_json():
 def expexted_test_last_operation():
     return {'2': '30.06.2019', '0': '19.04.2019'}
 
+@pytest.fixture
+def dictionies1():
+    return {
+            'id': 863064926,
+            'state': 'EXECUTED',
+            'date': '2019-12-08T22:46:21.935582',
+            'operationAmount':
+                {'amount': '41096.24',
+                 'currency':
+                     {'name': 'USD',
+                      'code': 'USD'}
+                 }, 'description': 'Открытие вклада',
+            'to': 'Счет 90424923579946435907'
+        }
+
+@pytest.fixture
+def dictionies2():
+    return {
+            "id": 710136990,
+            "state": "CANCELED",
+            "date": "2018-08-17T03:57:28.607101",
+            "operationAmount": {
+                "amount": "66906.45",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"
+                }
+            },
+            "description": "Перевод организации",
+            "from": "Maestro 1913883747791351",
+            "to": "Счет 11492155674319392427"
+        }
+

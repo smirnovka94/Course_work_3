@@ -20,7 +20,18 @@ def rewrite_date(date: str) -> str:
     new_date = datetime.datetime.strptime(date, '%Y-%m-%d').strftime('%d.%m.%Y')
     return new_date
 
-def last_operation(json_list: list,count_operations=5) -> dict:
+def find_information(dictionaries: dict, key: str)->str:
+    """
+    Проверяет в списке из словарей наличие значений. В противном случае возвращает  пустой текст
+    :param dictionaries:
+    :param key:
+    :return:
+    """
+    try:
+        return dictionaries[key]
+    except KeyError:
+        return ""
+def last_operation(json_list: list, count_operations=5) -> dict:
     """
      1.Получает список словарей из JSON файла
      2 обрабатывает каждый словарь на наличие статуса "EXECUTED"
@@ -83,18 +94,18 @@ def hidden_account(account: str) -> str:
         right_account = f"{right_account} **{number_account[-4:]}"
     return right_account
 
-def export_full_inf():
+def export_full_inf(index_date, data_dict):
 
-    for key, value in index_date_operations.items():
+    for key, value in index_date.items():
         key = int(key)
-        description = list_operations[key]['description']  # Получаем тип операции
-        sender_account = list_operations[key]['from']  # Получаем счет отправителя
+        description = data_dict[key]['description']  # Получаем тип операции
+        sender_account = data_dict[key]['from']  # Получаем счет отправителя
         sender_account = hidden_account(sender_account)
-        recipient_account = list_operations[key]['to']  # Получаем счет получателя
+        recipient_account = data_dict[key]['to']  # Получаем счет получателя
         recipient_account = hidden_account(recipient_account)
 
-        cash = list_operations[key]['operationAmount']['amount']  # Получаем сумму перевода
-        currency = list_operations[key]['operationAmount']['currency']['name']  # Получаем валюту перевода
+        cash = data_dict[key]['operationAmount']['amount']  # Получаем сумму перевода
+        currency = data_dict[key]['operationAmount']['currency']['name']  # Получаем валюту перевода
 
         print(f"{value} {description}")
         print(f"{sender_account} -> {recipient_account}")
