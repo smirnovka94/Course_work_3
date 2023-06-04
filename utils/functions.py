@@ -14,8 +14,6 @@ def read_json(filename)-> list:
 def rewrite_date(date: str) -> str:
     """
     Преобразует исходный формат даты YYYY-MM-DD в DD.MM.YYYY
-    :param date:
-    :return: right_date:
     """
     new_date = datetime.datetime.strptime(date, '%Y-%m-%d').strftime('%d.%m.%Y')
     return new_date
@@ -25,12 +23,13 @@ def find_information(dictionaries: dict, key: str)->str:
     Проверяет в списке из словарей наличие значений. В противном случае возвращает  пустой текст
     :param dictionaries:
     :param key:
-    :return:
+    :return: string
     """
     try:
         return dictionaries[key]
     except KeyError:
         return ""
+
 def last_operation(json_list: list, count_operations=5) -> dict:
     """
      1.Получает список словарей из JSON файла
@@ -65,7 +64,7 @@ def last_operation(json_list: list, count_operations=5) -> dict:
     sort_data = sorted(dict_date_full.items(), key=operator.itemgetter(1), reverse=True)
     i = 0
     dict_index_date = {}
-
+    # возвращаем словарь последних <count_operations>
     while i != count_operations:
         index_date = sort_data[i][0]
         dict_index_date[index_date] = dict_date[index_date]
@@ -77,7 +76,7 @@ def hidden_account(account: str) -> str:
     Если значение пустое выдает пустую строку
     Преобразует номер счета в скрытый с ***
     :param account:
-    :return:
+    :return: string
     """
     if account == "":
         return ""
