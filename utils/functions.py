@@ -59,3 +59,6 @@ def last_operation(json_list: list,count_operations=5) -> dict:
         dict_index_date[index_date] = dict_date[index_date]
         i += 1
     return dict_index_date
+
+def export_full_inf():
+    pass

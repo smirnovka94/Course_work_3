@@ -7,7 +7,7 @@ def expexted_result_for_read_json():
         {
             "id": 414894334,
             "state": "EXECUTED",
-            "date": "2019-06-30T15:11:53.136004",
+            "date": "2019-04-19T15:11:53.136004",
             "operationAmount": {
                 "amount": "95860.47",
                 "currency": {
@@ -23,7 +23,7 @@ def expexted_result_for_read_json():
         {
             "id": 509552992,
             "state": "EXECUTED",
-            "date": "2019-04-19T12:02:30.129240",
+            "date": "2019-06-30T12:02:30.129240",
             "operationAmount": {
                 "amount": "81513.74",
                 "currency": {
@@ -110,3 +110,8 @@ def expexted_result_for_read_json():
             "to": "Счет 11492155674319392427"
         }
     ]
+
+@pytest.fixture
+def expexted_test_last_operation():
+    return {'1': '30.06.2019', '0': '19.04.2019'}
+
