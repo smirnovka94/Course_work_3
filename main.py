@@ -15,8 +15,8 @@ if __name__ == "__main__":
         recipient_account = find_information(list_operations[key],'to') #Получаем счет получателя
         recipient_account = hidden_account(recipient_account)
 
-        cash = list_operations[key]['operationAmount']['amount'] #Получаем сумму перевода
-        currency = list_operations[key]['operationAmount']['currency']['name']  # Получаем валюту перевода
+        cash = find_information(list_operations[key]['operationAmount'],'amount') #Получаем сумму перевода
+        currency = find_information(list_operations[key]['operationAmount']['currency'],'name')  # Получаем валюту перевода
 
         #Собираем результат
         print(f"{value} {description}")
