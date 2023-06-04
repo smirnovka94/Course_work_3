@@ -14,13 +14,23 @@ def read_json(filename)-> list:
 def rewrite_date(date: str) -> str:
     """
     Преобразует исходный формат даты YYYY-MM-DD в DD.MM.YYYY
-    :param date:
-    :return: right_date:
     """
     new_date = datetime.datetime.strptime(date, '%Y-%m-%d').strftime('%d.%m.%Y')
     return new_date
 
-def last_operation(json_list: list,count_operations=5) -> dict:
+def find_information(dictionaries: dict, key: str)->str:
+    """
+    Проверяет в списке из словарей наличие значений. В противном случае возвращает  пустой текст
+    :param dictionaries:
+    :param key:
+    :return: string
+    """
+    try:
+        return dictionaries[key]
+    except KeyError:
+        return ""
+
+def last_operation(json_list: list, count_operations=5) -> dict:
     """
      1.Получает список словарей из JSON файла
      2 обрабатывает каждый словарь на наличие статуса "EXECUTED"
@@ -37,6 +47,7 @@ def last_operation(json_list: list,count_operations=5) -> dict:
         try:
             state = dictionaries['state']
         except KeyError:
+            i += 1
             continue
         # ищем "EXECUTED"
         if state == "EXECUTED":
@@ -53,9 +64,36 @@ def last_operation(json_list: list,count_operations=5) -> dict:
     sort_data = sorted(dict_date_full.items(), key=operator.itemgetter(1), reverse=True)
     i = 0
     dict_index_date = {}
-
+    # возвращаем словарь последних <count_operations>
     while i != count_operations:
         index_date = sort_data[i][0]
         dict_index_date[index_date] = dict_date[index_date]
         i += 1
     return dict_index_date
+
+def hidden_account(account: str) -> str:
+    """
+    Если значение пустое выдает пустую строку
+    Преобразует номер счета в скрытый с ***
+    :param account:
+    :return: string
+    """
+    if account == "":
+        return ""
+    else:
+        text_split = account.split(' ')
+        right_account = " ".join(text_split[:-1])
+        number_account = text_split[-1]
+        len_number = len(number_account)
+        if len_number == 16:
+            for i, item in enumerate(number_account):
+                if (i) % 4 == 0:
+                    right_account = right_account + " "
+                if 5 < i < 12:
+                    right_account = right_account + "*"
+                else:
+                    right_account = right_account + item
+        else:
+            right_account = f"{right_account} **{number_account[-4:]}"
+        return right_account
+
