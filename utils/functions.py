@@ -37,6 +37,7 @@ def last_operation(json_list: list,count_operations=5) -> dict:
         try:
             state = dictionaries['state']
         except KeyError:
+            i += 1
             continue
         # ищем "EXECUTED"
         if state == "EXECUTED":
@@ -60,5 +61,12 @@ def last_operation(json_list: list,count_operations=5) -> dict:
         i += 1
     return dict_index_date
 
+def hidden_account(account: str) -> str:
+    """
+    Преобразует номер счета в скрытый с ***
+    :param account:
+    :return:
+    """
+    pass
 def export_full_inf():
     pass

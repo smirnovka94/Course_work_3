@@ -113,5 +113,5 @@ def expexted_result_for_read_json():
 
 @pytest.fixture
 def expexted_test_last_operation():
-    return {'1': '30.06.2019', '0': '19.04.2019'}
+    return {'2': '30.06.2019', '0': '19.04.2019'}
 
