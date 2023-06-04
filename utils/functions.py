@@ -74,39 +74,27 @@ def last_operation(json_list: list, count_operations=5) -> dict:
 
 def hidden_account(account: str) -> str:
     """
+    Если значение пустое выдает пустую строку
     Преобразует номер счета в скрытый с ***
     :param account:
     :return:
     """
-    text_split = account.split(' ')
-    right_account = " ".join(text_split[:-1])
-    number_account = text_split[-1]
-    len_number = len(number_account)
-    if len_number == 16:
-        for i, item in enumerate(number_account):
-            if (i) % 4 == 0:
-                right_account = right_account + " "
-            if 5 < i < 12:
-                right_account = right_account + "*"
-            else:
-                right_account = right_account + item
+    if account == "":
+        return ""
     else:
-        right_account = f"{right_account} **{number_account[-4:]}"
-    return right_account
+        text_split = account.split(' ')
+        right_account = " ".join(text_split[:-1])
+        number_account = text_split[-1]
+        len_number = len(number_account)
+        if len_number == 16:
+            for i, item in enumerate(number_account):
+                if (i) % 4 == 0:
+                    right_account = right_account + " "
+                if 5 < i < 12:
+                    right_account = right_account + "*"
+                else:
+                    right_account = right_account + item
+        else:
+            right_account = f"{right_account} **{number_account[-4:]}"
+        return right_account
 
-def export_full_inf(index_date, data_dict):
-
-    for key, value in index_date.items():
-        key = int(key)
-        description = data_dict[key]['description']  # Получаем тип операции
-        sender_account = data_dict[key]['from']  # Получаем счет отправителя
-        sender_account = hidden_account(sender_account)
-        recipient_account = data_dict[key]['to']  # Получаем счет получателя
-        recipient_account = hidden_account(recipient_account)
-
-        cash = data_dict[key]['operationAmount']['amount']  # Получаем сумму перевода
-        currency = data_dict[key]['operationAmount']['currency']['name']  # Получаем валюту перевода
-
-        print(f"{value} {description}")
-        print(f"{sender_account} -> {recipient_account}")
-        print(f"{cash} {currency}\n")
